@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+</head>
+<body>
+<div id="greetings-block">
+    <h1 style="color: green" data-th-each = "greeting : ${greetings}">
+        [[ ${greeting.message} ]]
+    </h1>
+</div>
+<script>
+    window.addEventListener('load', function () {
+        var name = window.prompt('who should we greet?');
+        var es = new EventSource('http://localhost:8080/greetings-updates.do?name=' + name)
+        var updateBlock = document.getElementById('greetings-block');
+        es.addEventListener('message', function (message) {
+            updateBlock.innerHTML = message.data;
+        })
+    })
+</script>
+</body>
+</html>
