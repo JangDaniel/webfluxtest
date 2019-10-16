@@ -5,6 +5,8 @@ import com.csbon.webfluxtest.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import java.util.List;
@@ -26,6 +28,9 @@ public class MovieService {
     }
 
     public Flux<Movie> findAllMovieInfo() {
-        return Flux.fromIterable(movieRepository.findAll()).delayElements(Duration.ofSeconds(1));
+        return Flux.fromIterable(movieRepository.findAll())
+                .subscribeOn(Schedulers.elastic())
+                .log()
+                .delayElements(Duration.ofSeconds(1));
     }
 }

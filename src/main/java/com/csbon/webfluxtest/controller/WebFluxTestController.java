@@ -24,27 +24,26 @@ public class WebFluxTestController {
     private final MyRepository myRepository;
     private final MovieService movieService;
 
-
 /*
     @RequestMapping("/")
     public String indexMainView(final Model model) {
         IReactiveDataDriverContextVariable reactiveDataDrivenMode =
-                new ReactiveDataDriverContextVariable(myRepository.findAll(), 1);
+                new ReactiveDataDriverContextVariable(myRepository.findFixAll(), 1);
         model.addAttribute("movies", reactiveDataDrivenMode);
 
         return "index";
     }
-
+*/
     @ModelAttribute
     @GetMapping("/mydata")
     public void getMyData(Model model) {
-        model.addAttribute("data", myRepository.findFirst());
+        model.addAttribute("data", myRepository.findFixFirst());
     }
 
     @ModelAttribute
     @GetMapping("/mydatas")
     public void getMyDatas(Model model) {
-        model.addAttribute("dataList", myRepository.findAllbyMono());
+        model.addAttribute("dataList", myRepository.findFixAllbyMono());
     }
 
     @ModelAttribute
@@ -53,6 +52,6 @@ public class WebFluxTestController {
         logger.info(name);
         model.addAttribute("name", "CSBON");
     }
-*/
+
 
 }

@@ -1,4 +1,4 @@
-package com.csbon.webfluxtest;
+package com.csbon.webfluxtest.websocket;
 
 import com.csbon.webfluxtest.greeting.model.Greeting;
 import com.csbon.webfluxtest.greeting.model.GreetingProducer;
@@ -17,17 +17,18 @@ import java.util.Map;
 
 
 @Configuration
-class WebSocketConfiguration{
-
+class WebSocketConfiguration {
 
     @Bean
     SimpleUrlHandlerMapping simpleUrlHandlerMapping(WebSocketHandler wsh) {
+
         return new SimpleUrlHandlerMapping() {
             {
                 setOrder(10);
                 setUrlMap(Map.of("/ws/greetings", wsh));
 
                 Map<String, CorsConfiguration> corsConfigurationMap = new HashMap<>();
+
                 CorsConfiguration corsConfiguration = new CorsConfiguration();
                 corsConfiguration.addAllowedOrigin("/**");
                 corsConfigurationMap.put("ws://localhost:8080/ws/greetings", corsConfiguration);
